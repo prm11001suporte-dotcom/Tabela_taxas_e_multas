@@ -1,383 +1,348 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Tabela de Taxas e Multas</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        html, body {
-            width: 100%;
-            min-height: 100vh;
-            overflow-y: auto; /* Permite rolagem se a tela for muito pequena ou ampliada */
-            
-            /* CONFIGURAÇÃO DA IMAGEM DE FUNDO AJUSTADA PARA 50% */
-            background-image: url('PRM11001 Imagem.jpg');
-            background-position: center;
-            background-repeat: no-repeat; /* Mude para 'repeat' se quiser que ela se repita pelo fundo */
-            background-size: 50% auto;    /* Reduzido para 50% da largura da tela */
-            background-attachment: fixed;
-            background-color: #f1f5f9;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding: 8px 12px;
-            background-color: rgba(241, 245, 249, 0.6); /* Tornou o fundo levemente mais visível para contraste */
-        }
-        header {
-            text-align: center;
-            background: linear-gradient(135deg, #1e5631, #2d7a47);
-            color: white;
-            padding: 4px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-        }
-        header h1 {
-            font-size: 12pt;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-        header p {
-            font-size: 8pt;
-            color: #e2f0d9;
-        }
-        .main-content {
-            display: flex;
-            gap: 10px;
-            margin-top: 6px;
-        }
-        .col {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .card {
-            background: white;
-            border-radius: 4px;
-            padding: 5px 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border-top: 3px solid #1e5631;
-            display: flex;
-            flex-direction: column;
-        }
-        .card-t1 { border-top-color: #16a34a; background-color: rgba(252, 253, 252, 0.96); }
-        .card-t2 { border-top-color: #2563eb; background-color: rgba(248, 250, 252, 0.96); }
-        .card-t3 { border-top-color: #7c3aed; background-color: rgba(250, 245, 255, 0.96); }
-        .card-t4 { border-top-color: #db2777; background-color: rgba(253, 242, 248, 0.96); }
-        
-        .card h2 {
-            font-size: 7.5pt;
-            color: #1e293b;
-            margin-bottom: 3px;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 1px;
-            text-transform: uppercase;
-            font-weight: 700;
-            text-align: center;
-        }
-        
-        /* Layout em Largura Total para o card de Mobilização */
-        .full-width-card {
-            margin-top: 6px;
-        }
-        
-        .sub-tables-flex {
-            display: flex;
-            gap: 8px;
-        }
-        .sub-table-block {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 4px;
-            border-radius: 4px;
-        }
-        .bg-oficiais {
-            background-color: #fff1f2;
-            border: 1px solid #fecdd3;
-        }
-        .bg-prapas {
-            background-color: #eff6ff;
-            border: 1px solid #bfdbfe;
-        }
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Tabela de Taxas e Multas</title>
+ <style>
+ * {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
+ html, body {
+ width: 100%;
+ height: 100vh;
+ overflow: hidden; /* Remove completamente as barras de rolagem */
+ /* Imagem centralizada ocupando 50% do tamanho */
+ background: #f1f5f9 url('PRM11001 Imagem.jpg') no-repeat center center/50%;
+ }
+ .container {
+ display: flex;
+ flex-direction: column;
+ height: 100vh;
+ padding: 1vh 1vw;
+ justify-content: space-between;
+ }
+ header {
+ text-align: center;
+ background: linear-gradient(135deg, rgba(30, 86, 49, 0.95), rgba(45, 122, 71, 0.95));
+ color: white;
+ padding: 6px;
+ border-radius: 6px;
+ box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+ }
+ header h1 {
+ font-size: 1.4rem;
+ font-weight: 700;
+ letter-spacing: 0.5px;
+ }
+ header p {
+ font-size: 0.95rem;
+ color: #e2f0d9;
+ margin-top: 2px;
+ font-weight: 700; /* Texto do cabeçalho em negrito */
+ }
+ .main-content {
+ display: flex;
+ flex: 1;
+ gap: 1vw;
+ margin-top: 1vh;
+ min-height: 0;
+ }
+ .col {
+ flex: 1;
+ display: flex;
+ flex-direction: column;
+ gap: 1vh;
+ min-height: 0;
+ }
+ .card {
+ background: rgba(255, 255, 255, 0.45); 
+ backdrop-filter: blur(5px);
+ -webkit-backdrop-filter: blur(5px);
+ border-radius: 6px;
+ padding: 8px 12px;
+ box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+ border-top: 4px solid #1e5631;
+ display: flex;
+ flex-direction: column;
+ flex: 1;
+ min-height: 0;
+ }
+ .card-t1 { border-top-color: #16a34a; background-color: rgba(252, 253, 252, 0.45); }
+ .card-t2 { border-top-color: #2563eb; background-color: rgba(248, 250, 252, 0.45); }
+ .card-t3 { border-top-color: #7c3aed; background-color: rgba(250, 245, 255, 0.45); }
+ .card-t4 { border-top-color: #db2777; background-color: rgba(253, 242, 248, 0.45); }
+ 
+ .card h2 {
+ font-size: 0.95rem;
+ color: #0f172a;
+ margin-bottom: 6px;
+ border-bottom: 1px solid rgba(15, 23, 42, 0.2);
+ padding-bottom: 3px;
+ text-transform: uppercase;
+ font-weight: 700;
+ text-align: center;
+ text-shadow: 0px 1px 1px rgba(255,255,255,0.8);
+ }
+ 
+ .table-container {
+ flex: 1;
+ overflow-y: auto;
+ }
+ 
+ .full-width-card {
+ margin-top: 1vh;
+ flex: 0 0 auto;
+ }
+ 
+ .sub-tables-flex {
+ display: flex;
+ gap: 1vw;
+ }
+ .sub-table-block {
+ flex: 1;
+ display: flex;
+ flex-direction: column;
+ padding: 6px;
+ border-radius: 4px;
+ }
+ .bg-oficiais {
+ background-color: rgba(255, 241, 242, 0.5);
+ border: 1px solid rgba(254, 205, 211, 0.6);
+ }
+ .bg-prapas {
+ background-color: rgba(239, 246, 255, 0.5);
+ border: 1px solid rgba(191, 219, 254, 0.6);
+ }
 
-        .sub-table-title {
-            font-size: 7pt;
-            font-weight: 700;
-            color: #1e293b;
-            text-align: center;
-            margin-bottom: 3px;
-            padding: 1px 0;
-            text-transform: uppercase;
-        }
+ .sub-table-title {
+ font-size: 0.85rem;
+ font-weight: 700;
+ color: #1e293b;
+ text-align: center;
+ margin-bottom: 4px;
+ text-transform: uppercase;
+ }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 6.5pt;
-        }
-        th, td {
-            padding: 2px 4px;
-            text-align: left;
-            border-bottom: 1px solid #edf2f7;
-        }
-        th {
-            background-color: #f8fafc;
-            color: #64748b;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 6pt;
-        }
-        .card-t1 th { background-color: #dcfce7; color: #15803d; }
-        .card-t2 th { background-color: #dbeafe; color: #1d4ed8; }
-        .card-t3 th { background-color: #f3e8ff; color: #6d28d9; }
-        .bg-oficiais th { background-color: #ffe4e6; color: #9f1239; }
-        .bg-prapas th { background-color: #dbeafe; color: #1e40af; }
-        
-        .text-right { text-align: right; }
-        .text-center { text-align: center; }
-        .row-highlight { background-color: #e0f2fe; font-weight: 600; }
-        
-        /* Rodapé Ajustado */
-        footer {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: auto;
-            padding-top: 8px;
-            padding-bottom: 4px;
-        }
-        .control-panel {
-            background: white;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            padding: 4px 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            width: calc(50% - 5px); /* Tamanho exato de uma coluna */
-        }
-        .control-group {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex: 1;
-        }
-        .control-group label {
-            font-size: 6.5pt;
-            font-weight: 600;
-            color: #475569;
-            white-space: nowrap;
-        }
-        .control-group input {
-            padding: 1px 4px;
-            border: 1px solid #cbd5e1;
-            border-radius: 3px;
-            font-size: 7pt;
-            height: 18px;
-            width: 100%;
-        }
-        .btn {
-            background-color: #1e5631;
-            color: white;
-            border: none;
-            height: 18px;
-            padding: 0 8px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 7pt;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .btn:hover { background-color: #143e22; }
-    </style>
+ table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 0.85rem;
+ color: #0f172a;
+ }
+ th, td {
+ padding: 5px 6px;
+ text-align: left;
+ border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+ text-shadow: 0px 1px 1px rgba(255,255,255,0.6); 
+ }
+ th {
+ background-color: rgba(248, 250, 252, 0.85);
+ color: #1e293b;
+ font-weight: 700;
+ text-transform: uppercase;
+ font-size: 0.75rem;
+ }
+ tbody td {
+ font-weight: 700; /* ALTERAÇÃO: Garante que todo o texto das tabelas fique em negrito */
+ }
+ /* ALTERAÇÃO: Alternância de linhas cinza (linhas pares) e branco transparente (linhas ímpares) */
+ tbody tr:nth-child(even) {
+ background-color: rgba(0, 0, 0, 0.05); 
+ }
+ tbody tr:nth-child(odd) {
+ background-color: rgba(255, 255, 255, 0.2); 
+ }
+
+ .card-t1 th { background-color: rgba(220, 252, 231, 0.9); color: #15803d; }
+ .card-t2 th { background-color: rgba(219, 234, 254, 0.9); color: #1d4ed8; }
+ .card-t3 th { background-color: rgba(243, 232, 255, 0.9); color: #6d28d9; }
+ .bg-oficiais th { background-color: rgba(255, 228, 230, 0.9); color: #9f1239; }
+ .bg-prapas th { background-color: rgba(219, 234, 254, 0.9); color: #1e40af; }
+ 
+ .text-right { text-align: right; }
+ .text-center { text-align: center; }
+
+ /* RESPONSIVIDADE PARA SMARTPHONES */
+ @media (max-width: 768px) {
+ html, body {
+ overflow-y: auto;
+ height: auto;
+ background-size: 80%; 
+ }
+ .container {
+ height: auto;
+ gap: 10px;
+ }
+ .main-content {
+ flex-direction: column;
+ height: auto;
+ }
+ .sub-tables-flex {
+ flex-direction: column;
+ gap: 8px;
+ }
+ table {
+ font-size: 0.9rem;
+ }
+ }
+ </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1 id="main-title">TABELA DE TAXAS E MULTAS</h1>
-        <p id="sub-title">Vigente em Abril, Maio e Junho de 2026</p>
-    </header>
+ <header>
+ <h1 id="main-title">TABELA DE TAXAS E MULTAS</h1>
+ <p id="sub-title"></p>
+ </header>
 
-    <div class="main-content">
-        <div class="col">
-            <div class="card card-t1">
-                <h2>Taxas</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 15%;">Artigo</th>
-                                <th style="width: 65%;">Discriminação das Taxas</th>
-                                <th style="width: 20%;" class="text-right">Taxa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="text-center">103</td><td>Adiantamento de Incorporação (um ano)</td><td class="text-right val-calc" data-factor="1">R$ 6,56</td></tr>
-                            <tr><td class="text-center">107, §2º</td><td>Emissão de CDI</td><td class="text-right val-calc" data-factor="1">R$ 6,56</td></tr>
-                            <tr><td class="text-center">2/24</td><td>Emissão de CDSA</td><td class="text-right val-calc" data-factor="1">R$ 6,56</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+ <div class="main-content">
+ <div class="col">
+ <div class="card card-t1">
+ <h2>Taxas</h2>
+ <div class="table-container">
+ <table>
+ <thead>
+ <tr>
+ <th style="width: 20%;">Artigo</th>
+ <th style="width: 55%;">Discriminação das Taxas</th>
+ <th style="width: 25%;" class="text-right">Taxa</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr><td class="text-center">103</td><td>Adiantamento de Incorporação (um ano)</td><td class="text-right val-calc" data-factor="1"></td></tr>
+ <tr><td class="text-center">107, §2º</td><td>Emissão de CDI</td><td class="text-right val-calc" data-factor="1"></td></tr>
+ <tr><td class="text-center">2/24</td><td>Emissão de CDSA</td><td class="text-right val-calc" data-factor="1"></td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
 
-            <div class="card card-t2">
-                <h2>Multas</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 15%;">Artigo</th>
-                                <th style="width: 55%;">Discriminação das Multas</th>
-                                <th style="width: 12%;" class="text-center">Fator</th>
-                                <th style="width: 18%;" class="text-right">Taxa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="text-center">176/1º</td><td>Apresentar-se fora do prazo para alistamento</td><td class="text-center">1</td><td class="text-right val-calc" data-factor="1">R$ 6,56</td></tr>
-                            <tr><td class="text-center">176/3º</td><td>Reservista (falta de apresentação ao EXAR)</td><td class="text-center">1</td><td class="text-right val-calc" data-factor="1">R$ 6,56</td></tr>
-                            <tr><td class="text-center">177/1º</td><td>Extraviar, inutilizar ou alterar certificado</td><td class="text-center">3</td><td class="text-right val-calc" data-factor="3">R$ 19,68</td></tr>
-                            <tr><td class="text-center">177/1º</td><td>Inutilização do RA (combinado com o Art. 179)</td><td class="text-center">3</td><td class="text-right val-calc" data-factor="3">R$ 19,68</td></tr>
-                            <tr><td class="text-center">179/2º</td><td>Prestar declaração falsa</td><td class="text-center">10</td><td class="text-right val-calc" data-factor="10">R$ 65,60</td></tr>
-                            <tr><td class="text-center">225º</td><td>Isenção de Multas e Taxas</td><td class="text-center">0</td><td class="text-right">R$ -</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+ <div class="card card-t2">
+ <h2>Multas</h2>
+ <div class="table-container">
+ <table>
+ <thead>
+ <tr>
+ <th style="width: 20%;">Artigo</th>
+ <th style="width: 50%;">Discriminação das Multas</th>
+ <th style="width: 12%;" class="text-center">Fat.</th>
+ <th style="width: 18%;" class="text-right">Taxa</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr><td class="text-center">176, 1)</td><td>Apresentar-se fora do prazo para alistamento</td><td class="text-center">1</td><td class="text-right val-calc" data-factor="1"></td></tr>
+ <tr><td class="text-center">176, 3)</td><td>Reservista (falta de apresentação ao EXAR)</td><td class="text-center">1</td><td class="text-right val-calc" data-factor="1"></td></tr>
+ <tr><td class="text-center">177, 1)</td><td>Extraviar, inutilizar ou alterar certificado</td><td class="text-center">3</td><td class="text-right val-calc" data-factor="3"></td></tr>
+ <tr><td class="text-center">177, 1)</td><td>Inutilização do RA (c/ Art. 179)</td><td class="text-center">3</td><td class="text-right val-calc" data-factor="3"></td></tr>
+ <tr><td class="text-center">179, 2)</td><td>Prestar declaração falsa</td><td class="text-center">10</td><td class="text-right val-calc" data-factor="10"></td></tr>
+ <tr><td class="text-center">225</td><td>Isenção de Multas e Taxas</td><td class="text-center">0</td><td class="text-right">R$ -</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
 
-        <div class="col">
-            <div class="card card-t3">
-                <h2>Multas de Refratário</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="text-center" style="width: 12%;">Qtd</th>
-                                <th style="width: 48%;">Artigos</th>
-                                <th class="text-center" style="width: 15%;">Fator</th>
-                                <th class="text-right" style="width: 25%;">Multa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="text-center">1</td><td>Art. 176/2</td><td class="text-center">1</td><td class="text-right val-calc" data-factor="1">R$ 6,56</td></tr>
-                            <tr class="row-highlight"><td class="text-center">2</td><td>Art. 178/1</td><td class="text-center">6</td><td class="text-right val-calc" data-factor="6">R$ 39,36</td></tr>
-                            <tr><td class="text-center">3</td><td>Art. 178/2</td><td class="text-center">11</td><td class="text-right val-calc" data-factor="11">R$ 72,16</td></tr>
-                            <tr><td class="text-center">4</td><td>Art. 178/2</td><td class="text-center">16</td><td class="text-right val-calc" data-factor="16">R$ 104,96</td></tr>
-                            <tr><td class="text-center">5</td><td>Art. 178/2</td><td class="text-center">21</td><td class="text-right val-calc" data-factor="21">R$ 137,76</td></tr>
-                            <tr><td class="text-center">6</td><td>Art. 178/2</td><td class="text-center">26</td><td class="text-right val-calc" data-factor="26">R$ 170,56</td></tr>
-                            <tr><td class="text-center">7</td><td>Art. 178/2</td><td class="text-center">31</td><td class="text-right val-calc" data-factor="31">R$ 203,36</td></tr>
-                            <tr><td class="text-center">8</td><td>Art. 178/2</td><td class="text-center">36</td><td class="text-right val-calc" data-factor="36">R$ 236,16</td></tr>
-                            <tr><td class="text-center">9</td><td>Art. 178/2</td><td class="text-center">41</td><td class="text-right val-calc" data-factor="41">R$ 268,96</td></tr>
-                            <tr><td class="text-center">10</td><td>Art. 178/2</td><td class="text-center">46</td><td class="text-right val-calc" data-factor="46">R$ 301,76</td></tr>
-                            <tr><td class="text-center">11</td><td>Art. 178/2</td><td class="text-center">51</td><td class="text-right val-calc" data-factor="51">R$ 334,56</td></tr>
-                            <tr><td class="text-center">12</td><td>Art. 178/2</td><td class="text-center">56</td><td class="text-right val-calc" data-factor="56">R$ 367,36</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+ <div class="col">
+ <div class="card card-t3">
+ <h2>Multas de Refratário</h2>
+ <div class="table-container">
+ <table>
+ <thead>
+ <tr>
+ <th class="text-center" style="width: 15%;">Qtd</th>
+ <th style="width: 45%;">Artigos</th>
+ <th class="text-center" style="width: 15%;">Fator</th>
+ <th class="text-right" style="width: 25%;">Multa</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr><td class="text-center">1</td><td>Art. 176/2</td><td class="text-center">1</td><td class="text-right val-calc" data-factor="1"></td></tr>
+ <tr><td class="text-center">2</td><td>Art. 178/1</td><td class="text-center">6</td><td class="text-right val-calc" data-factor="6"></td></tr>
+ <tr><td class="text-center">3</td><td>Art. 178/2</td><td class="text-center">11</td><td class="text-right val-calc" data-factor="11"></td></tr>
+ <tr><td class="text-center">4</td><td>Art. 178/2</td><td class="text-center">16</td><td class="text-right val-calc" data-factor="16"></td></tr>
+ <tr><td class="text-center">5</td><td>Art. 178/2</td><td class="text-center">21</td><td class="text-right val-calc" data-factor="21"></td></tr>
+ <tr><td class="text-center">6</td><td>Art. 178/2</td><td class="text-center">26</td><td class="text-right val-calc" data-factor="26"></td></tr>
+ <tr><td class="text-center">7</td><td>Art. 178/2</td><td class="text-center">31</td><td class="text-right val-calc" data-factor="31"></td></tr>
+ <tr><td class="text-center">8</td><td>Art. 178/2</td><td class="text-center">36</td><td class="text-right val-calc" data-factor="36"></td></tr>
+ <tr><td class="text-center">9</td><td>Art. 178/2</td><td class="text-center">41</td><td class="text-right val-calc" data-factor="41"></td></tr>
+ <tr><td class="text-center">10</td><td>Art. 178/2</td><td class="text-center">46</td><td class="text-right val-calc" data-factor="46"></td></tr>
+ <tr><td class="text-center">11</td><td>Art. 178/2</td><td class="text-center">51</td><td class="text-right val-calc" data-factor="51"></td></tr>
+ <tr><td class="text-center">12</td><td>Art. 178/2</td><td class="text-center">56</td><td class="text-right val-calc" data-factor="56"></td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
+ </div>
 
-    <div class="card card-t4 full-width-card">
-        <h2>Multas de Mobilização</h2>
-        <div class="sub-tables-flex">
-            <div class="sub-table-block bg-oficiais">
-                <div class="sub-table-title">Oficiais (Art. 177/3)</div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="text-center">Ano</th>
-                            <th class="text-center">Fator</th>
-                            <th class="text-right">Multa</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="text-center">1</td><td class="text-center">5</td><td class="text-right val-calc" data-factor="5">R$ 32,80</td></tr>
-                        <tr><td class="text-center">2</td><td class="text-center">10</td><td class="text-right val-calc" data-factor="10">R$ 65,60</td></tr>
-                        <tr><td class="text-center">3</td><td class="text-center">15</td><td class="text-right val-calc" data-factor="15">R$ 98,40</td></tr>
-                        <tr><td class="text-center">4</td><td class="text-center">20</td><td class="text-right val-calc" data-factor="20">R$ 131,20</td></tr>
-                        <tr><td class="text-center">5</td><td class="text-center">25</td><td class="text-right val-calc" data-factor="25">R$ 164,00</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="sub-table-block bg-prapas">
-                <div class="sub-table-title">Praças (Art. 177/3)</div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="text-center">Ano</th>
-                            <th class="text-center">Fator</th>
-                            <th class="text-right">Multa</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="text-center">1</td><td class="text-center">1</td><td class="text-right val-calc" data-factor="1">R$ 6,56</td></tr>
-                        <tr><td class="text-center">2</td><td class="text-center">2</td><td class="text-right val-calc" data-factor="2">R$ 13,12</td></tr>
-                        <tr><td class="text-center">3</td><td class="text-center">3</td><td class="text-right val-calc" data-factor="3">R$ 19,68</td></tr>
-                        <tr><td class="text-center">4</td><td class="text-center">4</td><td class="text-right val-calc" data-factor="4">R$ 26,24</td></tr>
-                        <tr><td class="text-center">5</td><td class="text-center">5</td><td class="text-right val-calc" data-factor="5">R$ 32,80</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <div class="control-panel">
-            <div class="control-group">
-                <label for="inp-months">Meses:</label>
-                <input type="text" id="inp-months" value="Abril, Maio e Junho de 2026">
-            </div>
-            <div class="control-group" style="max-width: 85px;">
-                <label for="inp-base">Taxa:</label>
-                <input type="number" id="inp-base" value="1.00" step="0.01">
-            </div>
-            <div class="control-group" style="max-width: 80px;">
-                <label for="inp-pass">Senha:</label>
-                <input type="password" id="inp-pass" placeholder="Senha">
-            </div>
-            <button class="btn" onclick="updateTable()">Executar</button>
-        </div>
-    </footer>
+ <div class="card card-t4 full-width-card">
+ <h2>Multas de Mobilização</h2>
+ <div class="sub-tables-flex">
+ <div class="sub-table-block bg-oficiais">
+ <div class="sub-table-title">Oficiais (Art. 177/3)</div>
+ <table>
+ <thead>
+ <tr>
+ <th class="text-center">Ano</th>
+ <th class="text-center">Fator</th>
+ <th class="text-right">Multa</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr><td class="text-center">1</td><td class="text-center">5</td><td class="text-right val-calc" data-factor="5"></td></tr>
+ <tr><td class="text-center">2</td><td class="text-center">10</td><td class="text-right val-calc" data-factor="10"></td></tr>
+ <tr><td class="text-center">3</td><td class="text-center">15</td><td class="text-right val-calc" data-factor="15"></td></tr>
+ <tr><td class="text-center">4</td><td class="text-center">20</td><td class="text-right val-calc" data-factor="20"></td></tr>
+ <tr><td class="text-center">5</td><td class="text-center">25</td><td class="text-right val-calc" data-factor="25"></td></tr>
+ </tbody>
+ </table>
+ </div>
+ 
+ <div class="sub-table-block bg-prapas">
+ <div class="sub-table-title">Praças (Art. 177/3)</div>
+ <table>
+ <thead>
+ <tr>
+ <th class="text-center">Ano</th>
+ <th class="text-center">Fator</th>
+ <th class="text-right">Multa</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr><td class="text-center">1</td><td class="text-center">1</td><td class="text-right val-calc" data-factor="1"></td></tr>
+ <tr><td class="text-center">2</td><td class="text-center">2</td><td class="text-right val-calc" data-factor="2"></td></tr>
+ <tr><td class="text-center">3</td><td class="text-center">3</td><td class="text-right val-calc" data-factor="3"></td></tr>
+ <tr><td class="text-center">4</td><td class="text-center">4</td><td class="text-right val-calc" data-factor="4"></td></tr>
+ <tr><td class="text-center">5</td><td class="text-center">5</td><td class="text-right val-calc" data-factor="5"></td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
 </div>
 
 <script>
-    function updateTable() {
-        const password = document.getElementById('inp-pass').value;
-        if (password !== 'prm11001') {
-            alert('Senha incorreta!');
-            return;
-        }
+ // ==========================================
+ // MODIFIQUE APENAS ESTAS DUAS LINHAS ABAIXO:
+ // ==========================================
+ const VIGENCIA_MESES = "Abril, Maio e Junho de 2026";
+ const VALOR_TAXA_BASE = 6.56; 
+ // ==========================================
 
-        const newMonths = document.getElementById('inp-months').value;
-        const newBase = parseFloat(document.getElementById('inp-base').value);
+ window.onload = function() {
+ document.getElementById('sub-title').innerText = 'Vigente em ' + VIGENCIA_MESES;
 
-        if (isNaN(newBase) || newBase <= 0) {
-            alert('Insira um valor de taxa válido.');
-            return;
-        }
-
-        document.getElementById('sub-title').innerText = 'Vigente em ' + newMonths;
-
-        const calcElements = document.querySelectorAll('.val-calc');
-        calcElements.forEach(el => {
-            const factor = parseFloat(el.getAttribute('data-factor'));
-            const newVal = newBase * factor;
-            el.innerText = 'R$ ' + newVal.toFixed(2).replace('.', ',');
-        });
-
-        document.getElementById('inp-pass').value = ''; 
-    }
+ const calcElements = document.querySelectorAll('.val-calc');
+ calcElements.forEach(el => {
+ const factor = parseFloat(el.getAttribute('data-factor'));
+ const newVal = VALOR_TAXA_BASE * factor;
+ el.innerText = 'R$ ' + newVal.toFixed(2).replace('.', ',');
+ });
+ };
 </script>
 
 </body>
